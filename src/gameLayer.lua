@@ -58,12 +58,18 @@ function GameLayer:initData()
     --UNDO
     gFriendInfo = getOneFriendId()
 
+    local function loadImg(imgData)
+        if nil ~= imgData then
+            self.friendImg = imgData
+        end
+    end
+
     local function friendInfoCallback(response)
         print("come in friendInfoCallback")
         local responseTable = json.decode(response)
         if nil ~= responseTable then
             local url = responseTable.data.url
-            self.friendImg = url
+            LoadUrlImage.addImageAsync(url, loadImg)
         end
     end
 
@@ -138,15 +144,8 @@ end
 function GameLayer:remoteTouchEvent()
     if (self.listener1 ~= nill) then
         local eventDispatcher = self:getEventDispatcher()
-        eventDispatcher:removeEventListenersForType(cc.EVENT_TOUCH_ONE_BY_ONE)
+        eventDispatcher:removeEventListener(self._listener)
         self.listener1 = nil
-    end
-end
-
-function GameLayer:loadImg(response)
-    print(response)
-    if nil ~= response then
-        self.friendImg = response
     end
 end
 
@@ -389,14 +388,22 @@ end
 
 function entity:init1(src, isFriend)
     self.bIsClicked = false
+    self.sp = nil
 
-    local sp = cc.Sprite:create(src)
-    if nil == sp then
-        print("create with src failed")
-        sp = cc.Sprite:create()
+    local typeSrc = type(src)
+    if typeSrc == "string" then
+        self.sp = cc.Sprite:create(src)
+    else
+        self.sp = cc.Sprite:createWithTexture(src)
     end
-    self:addChild(sp)
-    self:setContentSize(sp:getContentSize())
+    
+    if nil == self.sp then
+        print("create with src failed")
+        self.sp = cc.Sprite:create()
+    end
+
+    self:addChild(self.sp)
+    self:setContentSize(self.sp:getContentSize())
 
     self.positionX = 0
     self.positionY = 0
@@ -436,7 +443,7 @@ function entity:tick()
     self.positionY = self.positionY + self.velocityY
     self:setPosition(self.positionX, self.positionY)
     self.rotationAngle = self.rotationAngle + self.rotationalVelocity
-    self:setRotation(self.rotationAngle)
+    self.sp:setRotation(self.rotationAngle)
     self.velocityY = self.velocityY + self.tickY
 
     if isOutOfSize(self.positionX, self.positionY) then
