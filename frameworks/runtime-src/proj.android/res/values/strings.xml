@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">cocos2d-lua-Facebook</string>
+    <string name="app_id">501290509975581</string>
 </resources>
