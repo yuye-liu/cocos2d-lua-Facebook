@@ -4,45 +4,50 @@
 #include "platform/android/jni/JniHelper.h"
 #include <jni.h>
 #include <android/log.h>
-#include "ScriptingCore.h"
+#include "CCLuaEngine.h"
 
 using namespace cocos2d;
 
-const char* FBJavaClassName = "org/cocos2dx/javascript/FacebookConnectPlugin";
+const char* FBJavaClassName = "org/cocos2dx/lua/FacebookConnectPlugin";
 
-extern jsval anonEvaluate(JSContext *cx, JSObject *thisObj, const char* string);
-JSObject *fbObject = NULL;
 
 extern "C"{
 
-	void Java_org_cocos2dx_javascript_FacebookConnectPlugin_nativeCallback(JNIEnv*  env, jobject thiz, jint cbIndex,jstring params)
+	void Java_org_cocos2dx_lua_FacebookConnectPlugin_nativeCallback(JNIEnv*  env, jobject thiz, jint cbIndex,jstring params)
 	{
-		JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
-		ScriptingCore* sc = ScriptingCore::getInstance();
-		JSContext *cx = sc->getGlobalContext();
-		log("%d,%d",cx,sc->getGlobalObject());
-		if (fbObject == NULL)
-			fbObject = JSVAL_TO_OBJECT(anonEvaluate(cx, sc->getGlobalObject(), "(function () { return FB; })()"));
-		jsval res;
-
-		if (params != NULL)
+		std::string strParams = JniHelper::jstring2string(params);
+		auto engine = LuaEngine::getInstance();
+		auto stack = engine->getLuaStack();
+		auto state = stack->getLuaState();
+		int topIndex = lua_gettop(state);
+		lua_getglobal(state, "_G");                          /* L: G */
+		lua_getfield(state, -1, "FB");                       /* L: G FB */
+		lua_pushstring(state, "callback");                   /* L: G FB funcName */
+		lua_gettable(state, -2);                             /* L: G FB func */
+		if (!lua_isfunction(state, -1))
 		{
-			jsval argv[2];
-			argv[0] = INT_TO_JSVAL(cbIndex);
-			std::string tstr = JniHelper::jstring2string(params);
-			argv[1] = std_string_to_jsval(cx,tstr);
-			JS_CallFunctionName(cx, fbObject, "callback", 2, argv, &res);
+		    CCLOG("[LUA ERROR] name '%s' does not represent a Lua function", "callback");
+		    lua_settop(state, topIndex);
+		    return;
+		}
+
+		if (nullptr != strParams.c_str())
+		{
+		    stack->pushInt(cbIndex);
+		    stack->pushString(strParams.c_str());
+		    stack->executeFunction(2);
 		}
 		else
 		{
-			jsval argv[1];
-			argv[0] = INT_TO_JSVAL(cbIndex);
-			JS_CallFunctionName(cx, fbObject, "callback", 1, argv, &res);
+		    stack->pushInt(cbIndex);
+		    stack->executeFunction(1);
 		}
+
+		lua_settop(state, topIndex);
 	}
 };
 
-void FacebookInterface::callbackJs(int cbIndex, const char* params){
+void FacebookInterface::callback(int cbIndex, const char* params){
 	
 }
 

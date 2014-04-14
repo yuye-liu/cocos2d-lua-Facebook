@@ -7,7 +7,11 @@ LOCAL_MODULE := cocos2dlua_shared
 LOCAL_MODULE_FILENAME := libcocos2dlua
 
 LOCAL_SRC_FILES := hellolua/main.cpp \
-                   ../../Classes/AppDelegate.cpp
+                   ../../Classes/AppDelegate.cpp \
+                    ../../Classes/lua_bindings_loadUrlImage.cpp \
+                   ../../Classes/FacebookAndroidInterface.cpp \
+                   ../../Classes/LoadUrlImage.cpp \
+                   ../../Classes/lua_bindings_facebook.cpp
 
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes

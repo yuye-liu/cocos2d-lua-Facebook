@@ -429,6 +429,7 @@ function entity:spawn()
     self:setPosition(self.positionX, self.positionY)
 
     self.rotationalVelocity = getRandom(-self.rot, self.rot)
+    print(self.rotationalVelocity)
 
     local distanceToMiddle = getRandom(220, 260) - self.positionX
     self.velocityX = distanceToMiddle * getRandom(0.01, 0.015)
