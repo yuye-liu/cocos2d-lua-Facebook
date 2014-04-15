@@ -41,29 +41,45 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../Classes/CCUIKit.mm"
-            timestampString = "419154054.446791"
+            filePath = "../Classes/FacebookIosInterface.cpp"
+            timestampString = "419169002.275933"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "CCUIKit::logOutFacebook(int cbIndex)"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "FacebookInterface::logout(int cbIndex)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/CCUIFaceBook.mm"
-            timestampString = "419158109.811271"
+            timestampString = "419179624.147719"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
-            landmarkName = "-logOutFacebook:"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "-logInFacebook:Scope:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/CCUIFaceBook.mm"
+            timestampString = "419180110.194052"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
+            landmarkName = "-logInFacebook:Scope:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -74,12 +90,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/FacebookIosInterface.cpp"
-            timestampString = "419158301.984999"
+            timestampString = "419180236.027636"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
-            landmarkName = "FacebookInterface::login(int cbIndex,const char* scope)"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "FacebookInterface::callback(int cbIndex, const char* params)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

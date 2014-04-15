@@ -74,21 +74,38 @@ using namespace std;
                                                       NSError *error)
                                   {
                                       self.session = session;
+<<<<<<< HEAD
                                       std:: map<std::string, std::string> Info;
                                       self.token = session.accessTokenData.accessToken;
                                       if(self.token!=nil)
                                       {
                                           Info["token"] = [_token UTF8String];
                                       }
-                                      self.userID = session.appID;
-                                      NSDate * expiresData = (NSDate * )session.accessTokenData.expirationDate;
-                                      self.expiresIn = [self intervalSinceNow: expiresData];
-                                      NSArray * expiresArray = [self.expiresIn componentsSeparatedByString:@"."];
-                                      self.expiresIn = expiresArray[0];
-                                      NSArray * permissions = session.accessTokenData.permissions;
-                                      NSLog(@"permissions==%@",permissions);
-                                      self.signedRequest = @"";
+=======
+                                      
                                       int state = session.state;
+                                      
+                                      if (state == FBSessionStateOpen)
+                                      {
+                                          std:: map<std::string, std::string> Info;
+                                          self.token = session.accessTokenData.accessToken;
+                                          Info["token"] = [_token UTF8String];
+                                          
+                                          NSDate * expiresData = (NSDate * )session.accessTokenData.expirationDate;
+                                          self.expiresIn = [self intervalSinceNow: expiresData];
+                                          NSArray * expiresArray = [self.expiresIn componentsSeparatedByString:@"."];
+                                          self.expiresIn = expiresArray[0];
+                                          
+                                          NSArray * permissions = session.accessTokenData.permissions;
+                                          NSLog(@"permissions==%@",permissions);
+                                      }
+
+>>>>>>> d23c2261408b39c14eb7f9d4dd4e1b7fc19d2b9a
+                                      self.userID = session.appID;
+
+
+                                      self.signedRequest = @"";
+                                      
                                 
                                       
                                       self.logInfo = [NSString stringWithFormat:@"{\"authResponse\":{\"accessToken\":\"%@\",\"userID\":\"%@\",\"expiresIn\":\"%@\",\"signedRequest\":\"%@\"},\"status\":\"%@\"}",self.token,self.userID,self.expiresIn,self.signedRequest,self.status];
@@ -111,9 +128,21 @@ using namespace std;
                                               break;
                                       }
                                       
+<<<<<<< HEAD
                                       
                                       
                                       
+=======
+                                      if(state == FBSessionStateOpen)
+                                      {
+                                          self.logInfo = [NSString stringWithFormat:@"{\"authResponse\":{\"accessToken\":\"%@\",\"userID\":\"%@\",\"expiresIn\":\"%@\",\"signedRequest\":\"%@\"},\"status\":\"%@\"}",self.token,self.userID,self.expiresIn,self.signedRequest,self.status];
+                                          CCUIKit::shareCCUIKit()->logInFacebookCallBack(tag, [self.logInfo UTF8String]);
+                                      }
+                                      else if (state == FBSessionStateClosed)
+                                      {
+                                          self.logInfo = [NSString stringWithFormat:@"{\"authResponse\":{\"userID\":\"%@\",\"signedRequest\":\"%@\"},\"status\":\"%@\"}",self.userID,self.signedRequest,self.status];
+                                      }
+>>>>>>> d23c2261408b39c14eb7f9d4dd4e1b7fc19d2b9a
                                   }];
     return true;
 }
