@@ -49,24 +49,23 @@ bool CCUIKit::logInFacebook(int cbIndex,const char* scope)
 }
 bool CCUIKit::logInFacebookCallBack(int cbIndex,const char*  logInfo)
 {
-    FacebookInterface::callbackJs(cbIndex,logInfo);
+    FacebookInterface::callback(cbIndex,logInfo);
     
     return true;
 }
 const char * CCUIKit::logOutFacebook(int cbIndex)
 {
-    FacebookInterface::callbackJs(cbIndex, [[[CCUIFaceBook shareCCUIFaceBook] logOutFacebook:cbIndex] UTF8String]);
-    return "";
+    return [[[CCUIFaceBook shareCCUIFaceBook] logOutFacebook:cbIndex] UTF8String];
 }
 bool CCUIKit::logOutFacebookCallBack(int cbIndex,const char*  logInfo)
 {
-    FacebookInterface::callbackJs(cbIndex,logInfo);
+    FacebookInterface::callback(cbIndex,logInfo);
     
     return true;
 }
 const char * CCUIKit::getActiveSessionState(int cbIndex,bool force)
 {
-    FacebookInterface::callbackJs(cbIndex, CCUIKit::shareCCUIKit()->getActiveSessionState(cbIndex,[[[CCUIFaceBook shareCCUIFaceBook] getActiveSessionState:cbIndex Force:force] UTF8String]));
+    FacebookInterface::callback(cbIndex, CCUIKit::shareCCUIKit()->getActiveSessionState(cbIndex,[[[CCUIFaceBook shareCCUIFaceBook] getActiveSessionState:cbIndex Force:force] UTF8String]));
     return "";
 }
 ////////////////////////////////////////////////////
@@ -85,7 +84,7 @@ string CCUIKit::requestWithGraphPath(const char * graphPath, const char * method
 }
 void CCUIKit::requestApiCallBack(int cbIndex,const char * JsonString)
 {
-    FacebookInterface::callbackJs(cbIndex, JsonString);
+    FacebookInterface::callback(cbIndex, JsonString);
 }
 ////////////////////////////////////////////////////
 void CCUIKit::ui(const char* params,int cbIndex)
@@ -97,7 +96,7 @@ void CCUIKit::ui(const char* params,int cbIndex)
 }
 void CCUIKit::uiCallBack(int  cbIndex,const char * result)
 {
-   FacebookInterface::callbackJs(cbIndex,result);
+   FacebookInterface::callback(cbIndex,result);
 }
 void CCUIKit::WebDialogsCallBack(const char *  resultURL,int result)
 {
