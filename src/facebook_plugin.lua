@@ -65,7 +65,7 @@ function FB.getLoginStatus(...)
         if cbIndex == 0 then
            cbIndex = FB.pushCb(arg[1])
         end
-
+        
         if argNum == 2 then
             if force == 'true' then
                 Facebook.getLoginStatus(cbIndex - 1, true)
@@ -90,9 +90,9 @@ function FB.logout(...)
 
         local cbIndex = FB.indexOf(arg[1])
         if (cbIndex == 0) then
-            cbIndex = FB.pushCb(cb)
+            cbIndex = FB.pushCb(arg[1])
         end
-
+        print("logout function",cbIndex)
         Facebook.logout(cbIndex - 1)
     
     else
