@@ -25,6 +25,7 @@
     NSString * _signedRequest;
     NSString * _status;
     NSString * _logInfo;
+    int        logOutCallBackTag;
 }
 
 @property (strong, nonatomic) CCUIFaceBook * g_CCUIFaceBook;

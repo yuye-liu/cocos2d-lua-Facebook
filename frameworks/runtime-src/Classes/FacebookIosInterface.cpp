@@ -10,7 +10,7 @@
 
 #include "FacebookInterface.h"
 #include "CCUIKit.h"
-#include "CCLuaEngine.h"
+#include "ScriptingCore.h"
 using namespace std;
 
 void FacebookInterface::login(int cbIndex,const char* scope)
@@ -46,36 +46,35 @@ void FacebookInterface::ui(const char* params,int cbIndex)
     CCUIKit::shareCCUIKit()->ui(params, cbIndex);
 }
 
-void FacebookInterface::callback(int cbIndex, const char* params)
+extern jsval anonEvaluate(JSContext *cx, JSObject *thisObj, const char* string);
+JSObject *fbObject = NULL;
+void FacebookInterface::callbackJs(int cbIndex, const char* params)
 {
-    auto engine = LuaEngine::getInstance();
-    auto stack = engine->getLuaStack();
-    auto state = stack->getLuaState();
-    int topIndex = lua_gettop(state);
-    lua_getglobal(state, "_G");                          /* L: G */
-    lua_getfield(state, -1, "FB");                       /* L: G FB */
-    lua_pushstring(state, "callback");                   /* L: G FB funcName */
-    lua_gettable(state, -2);                             /* L: G FB func */
-    if (!lua_isfunction(state, -1))
-    {
-        CCLOG("[LUA ERROR] name '%s' does not represent a Lua function", "callback");
-        lua_settop(state, topIndex);
-        return;
-    }
-    
-    if (nullptr != params)
-    {
-        stack->pushInt(cbIndex);
-        stack->pushString(params);
-        stack->executeFunction(2);
-    }
-    else
-    {
-        stack->pushInt(cbIndex);
-        stack->executeFunction(1);
-    }
-    
-    lua_settop(state, topIndex);
+    JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+	ScriptingCore* sc = ScriptingCore::getInstance();
+	JSContext *cx = sc->getGlobalContext();
+	
+	if (fbObject == NULL)
+		fbObject = JSVAL_TO_OBJECT(anonEvaluate(cx, sc->getGlobalObject(), "(function () { return FB; })()"));
+	
+	jsval res;
+	
+	if (params != NULL)
+	{
+		jsval argv[2];
+		argv[0] = INT_TO_JSVAL(cbIndex);
+		std::string tstr = params;
+		argv[1] = std_string_to_jsval(cx,tstr);
+        
+		JS_CallFunctionName(cx, fbObject, "callback", 2, argv, &res);
+	}
+	else
+	{
+		jsval argv[1];
+		argv[0] = INT_TO_JSVAL(cbIndex);
+        
+		JS_CallFunctionName(cx, fbObject, "callback", 1, argv, &res);
+	}
 }
 
 #endif

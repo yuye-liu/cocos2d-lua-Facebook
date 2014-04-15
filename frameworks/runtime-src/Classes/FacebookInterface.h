@@ -13,7 +13,7 @@ public:
 	static void ui(const char* params,int cbIndex);
     
     //for callback
-    static void callback(int cbIndex, const char* params);
+    static void callbackJs(int cbIndex, const char* params);
 };
 
 #endif  //__INTERFACE_FACEBOOK_H_

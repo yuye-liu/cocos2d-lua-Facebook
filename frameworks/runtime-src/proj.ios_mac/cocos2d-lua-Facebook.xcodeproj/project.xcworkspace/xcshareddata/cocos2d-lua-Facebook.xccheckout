@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>8279638D-885B-46CB-9E25-1FD7E4CED380</string>
+	<key>IDESourceControlProjectName</key>
+	<string>cocos2d-lua-Facebook</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>27702308-4B8C-4223-B78C-83F3E3C7019A</key>
+		<string>https://github.com/yuye-liu/cocos2d-lua-Facebook.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>frameworks/runtime-src/proj.ios_mac/cocos2d-lua-Facebook.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>27702308-4B8C-4223-B78C-83F3E3C7019A</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/yuye-liu/cocos2d-lua-Facebook.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>27702308-4B8C-4223-B78C-83F3E3C7019A</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>27702308-4B8C-4223-B78C-83F3E3C7019A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>cocos2d-lua-Facebook</string>
+		</dict>
+	</array>
+</dict>
+</plist>

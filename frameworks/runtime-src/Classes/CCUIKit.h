@@ -34,6 +34,7 @@ public:
     bool logInFacebook(int cbIndex,const char* scope);
     bool logInFacebookCallBack(int cbIndex,const char*  logInfo);
     const char * logOutFacebook(int cbIndex);
+    bool  logOutFacebookCallBack(int cbIndex,const char*  logInfo);
     const char * getActiveSessionState(int cbIndex,bool force);
 ////////////////////////////////////////////////
     std::string requestWithGraphPath(const char * graphPath, const char * method, const char * parameters,int cbIndex);
