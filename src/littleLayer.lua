@@ -76,7 +76,7 @@ function MenuLayer:getBtn(normal, down, tag)
             if gLoginStatus then
                 print(gScore)
                 if gScore  >= 0 then
-                    FB.ui({ method = "fedd", caption = "I just smashed " .. gScore .. " friends! Can you beat it?", picture = "http://www.friendsmash.com/images/logo_large.jpg", name = "Checkout my Friend Smash greatness!"},function(response)
+                    FB.ui({ method = "feed", caption = "I just smashed " .. gScore .. " friends! Can you beat it?", picture = "http://www.friendsmash.com/images/logo_large.jpg", name = "Checkout my Friend Smash greatness!"},function(response)
                             print("come in fbCallback")
                         end)
                 else
@@ -391,8 +391,11 @@ function HeadLayer:getBtn(normal, down, tag)
                 if FB ~= nil then
                     alreadyLogin  = false
                     FB.logout(function(response)
+                        print("come in logout")
                         local responseTable = json.decode(response, 1)
+                        print("responseTable",responseTable, responseTable.status )
                         if(responseTable.status=='unknown') then
+                            print("come in unknown")
                             self:setName("player")
                             gLoginStatus = false
                             gFriendData = {}
