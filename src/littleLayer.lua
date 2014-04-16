@@ -1,6 +1,6 @@
 require("json")
 
-alreadyLogin = false
+firstClickLogIn = false
 
 BTN_PLAY = 0
 BTN_BRAG = 1
@@ -371,12 +371,12 @@ function HeadLayer:getBtn(normal, down, tag)
             if 1 == tag then
                 cclog("-------log in-----")
                 if FB ~= nil then
-                    FB.login(function(response)
-                        if alreadyLogin then
-                            return
-                        end
+                    if firstClickLogIn then
+                        return
+                    end
+                    firstClickLogIn = true
 
-                        alreadyLogin = true
+                    FB.login(function(response)
                         print("come in login")
                         local responseTable = json.decode(response, 1)
                         if nil ~= responseTable and nil ~= responseTable.authResponse and responseTable.status=='connected'then
@@ -387,9 +387,12 @@ function HeadLayer:getBtn(normal, down, tag)
                     print("can't connet to facebook,please check the internet.")
                 end
             elseif 2 == tag then
+                if not gLoginStatus then
+                    return
+                end 
                 cclog("-------log out-----")
-                if FB ~= nil then
-                    alreadyLogin  = false
+                firstClickLogIn  = false
+                if FB ~= nil then   
                     FB.logout(function(response)
                         print("come in logout")
                         local responseTable = json.decode(response, 1)
